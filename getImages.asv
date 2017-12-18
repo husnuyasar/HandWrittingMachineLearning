@@ -1,0 +1,24 @@
+function [ meanKV,eKV,KV, ] = getImages( f )
+    foldername = sprintf('images/%s',x);
+    imagefiles = dir(foldername);
+    nfiles = length(imagefiles);
+
+    for ii=1:nfiles
+       file = 'images/';
+       currentfilename = imagefiles(ii).name;
+       filename = strcat(file,currentfilename);
+       currentimage = imread(filename);
+       images{ii} = currentimage(:,:,1);
+    end
+    
+    KV = {};
+    for xx=1:ii
+        img = images{xx};
+        KV{xx} = findKeyVector(img);
+    end
+    
+    meanKV = calcMean(KV);
+    eKV = calcE(KV, meanKV);
+    %eKV = cov(meanKV);
+end
+
